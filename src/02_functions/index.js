@@ -1,5 +1,6 @@
+'use strict'
 
-// ===== Function declaration
+//#region Function declaration
 
 // render();
 // function render() {
@@ -83,27 +84,94 @@
 
 // f();
 
+//#endregion
+
+
+//#region Function expression
+
+// let render = function() {
+//     console.log('test string');
+// };
+
+// render();
+
+// f();
+// function f() {
+//     console.log('f');
+// }
+
+// render = f;
+// render();
 
 
 
 
 
+// function validate(val, success, error) {
+//     if (val < 0)
+//         error();
+//     else
+//         success();
+// }
+
+// function successHandler() {
+//     console.log('success');
+// }
+
+// function errorHandler() {
+//     console.log('error');
+// }
+
+// validate(12, successHandler, errorHandler);
+
+// validate(
+//     -4, 
+//     function() {console.log('OK')},
+//     function() {console.log('error')}
+// );
 
 
 
+// let f;
+// {
+//     f = function() {
+//         console.log('f');
+//     }
+// }
+
+// f();
 
 
+//#endregion
 
 
+//#region Arrow function
+
+let f = () => console.log('test');
+f();
+
+let g = (a, b) => {
+    //
+    //
+    return a + b;
+};
+
+console.log(g(4, 5));
 
 
+function validate(val, success, error) {
+    if (val < 0)
+        error();
+    else
+        success();
+}
 
+validate(
+    -4, 
+    () => console.log('ok'),
+    () => console.log('error')
+);
 
-
-// ===== Function expression
-
-
-
-// ===== Arrow function
+//#endregion
 
 
