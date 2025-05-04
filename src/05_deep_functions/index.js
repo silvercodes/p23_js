@@ -50,6 +50,7 @@
 
 //#endregion
 
+
 //#region Лексическое окружение
 
 // let a;
@@ -184,37 +185,274 @@
 
 // ==== TASK 3
 
-function Counter() {
-    // this = {}
+// function Counter() {
+//     // this = {}
 
-    let count = 0;
+//     let count = 0;
 
-    this.count = 10;
+//     this.count = 10;
 
-    this.up = function() {
-        this.count = 15;
-        return ++count;
-    }
+//     this.up = function() {
+//         this.count = 15;
+//         return ++count;
+//     }
 
-    this.down = function() {
-        return --count;
-    }
+//     this.down = function() {
+//         return --count;
+//     }
 
-    // return this;
-}
+//     // return this;
+// }
 
-let counter = new Counter();
+// let counter = new Counter();
 
-console.log('🟢', counter.up());
-console.log('🟢', counter.up());
-console.log('🟢', counter.down());
+// console.log('🟢', counter.up());
+// console.log('🟢', counter.up());
+// console.log('🟢', counter.down());
 
-console.log('🟢', counter);
+// console.log('🟢', counter);
 
 
+
+
+// ==== TASK 4
+
+// let name = 'Vasia';
+
+// if (true) {
+//     let role = 'admin';
+
+//     function render() {
+//         console.log('🟢', `name: ${name} role: ${role}`);
+//     }
+
+//     render();
+// }
+
+// render();
+
+
+
+// ==== TASK 5
+
+// function sum(a) {
+//     return function(b) {
+//         return a + b;
+//     }
+// }
+
+// const sum = a => b => a + b;
+
+
+// console.log('🟢', sum(3)(5));
+
+
+
+
+// ==== TASK 6
+
+// const arr = [3, 6, 2, 6, 9, 8];
+
+// function between(from, to) {
+//     return function(v) {
+//         return v >= from && v <= to;
+//     }
+// }
+
+// console.log('🟢', arr.filter(v => v % 2 === 0));
+
+// console.log('🟢', arr.filter(between(2, 5)));
+// console.log('🟢', arr.filter(between(5, 9)));
+
+
+
+
+// ==== TASK 7
+
+// const users = [
+//     {id: 101, name: 'vasia', age: 23},
+//     {id: 102, name: 'petya', age: 15},
+//     {id: 107, name: 'dima', age: 43},
+//     {id: 100, name: 'afrikand', age: 20},
+// ];
+
+// users.sort((a, b) => b.age - a.age);
+
+
+
+// function by(field) {
+//     return function(a, b) {
+//         return a[field] > b[field] ? 1 : -1;
+//     }
+// }
+
+// users.sort(by('name'));
+// users.sort(by('age'));
+
+
+
+// function by(field, dir = 'asc') {
+//     return function(a, b) {
+//         if (dir === 'asc')
+//             return a[field] > b[field] ? 1 : -1;
+//         else
+//             return a[field] > b[field] ? -1 : 1;
+//     }
+// }
+
+// //users.sort(by('name'));
+// users.sort(by('age', 'desc'));
+
+// console.log('🟢', users);
 
 
 //#endregion
 
+
+//#region var
+
+// --- 1. у var функциональная область видимости / let, const - блочная
+
+// function f1() {
+//     if (true) {
+//         var x = 10;
+//     }
+    
+//     console.log('🟢', x);
+// }
+
+// f1();
+
+
+// function f2() {
+//     if (true) {
+//         let y = 20;
+//         const z = 30;
+//     }
+    
+//     console.log('🟢', y, z);
+// }
+
+// f2();
+
+
+// ----- 2. hoisting
+
+// console.log('🟢', a);
+// var a = 5;
+
+// console.log('🟢', a);
+// let a = 5;
+
+
+// ----- 3. Повторное объявление
+
+// var a = 10;
+// var a = 20;
+// console.log('🟢', a);
+
+// let a = 10;
+// let a = 20;
+// console.log('🟢', a);
+
+
+// ----- 4. var в ГОВ становится св-вом глобального объекта
+// var a = 101;
+// let b = 202;
+
+// console.log('🟢', window.a);
+// console.log('🟢', window.b);
+
+//#endregion
+
+
+//#region Глобальный объект
+
+// console.log('🟢', globalThis);
+
+// alert('test');
+
+// window.alert('test');
+
+
+// console.log('🟢', this);
+
+
+// function f() {}
+
+// console.log('🟢', f === window.f);
+
+
+// const f = () => console.log('🟢', this);
+// f();
+
+//#endregion
+
+
+//#region Functions as object
+
+// function a(val) {
+//     console.log('🟢', 'test');
+// }
+
+// function b() {
+//     console.log('🟢', 'test');
+// }
+
+// function c(predicate = function() {}) {
+//     console.log('🟢', predicate.name);
+// }
+
+// function d(a, b, ...args) {}
+
+// console.dir(a);
+// console.dir(b);
+// c();
+// console.dir(d);
+
+
+
+
+// function maker() {
+//     function counter() {
+//         return ++counter.count;
+//     }
+
+//     counter.count = 0;
+
+//     return counter
+// }
+
+// const a = maker();
+
+// console.log('🟢', a());
+// console.log('🟢', a());
+// console.log('🟢', a());
+
+// console.dir(a);
+
+
+
+
+// ------------ NFE (Named Function Expression) --------------
+
+// let f = function test() {
+//     //
+//     test();
+// }
+
+// test();
+// f();
+
+
+
+// ----------- new Function() -----------------
+
+// const a = new Function('a', 'b', 'return a + b');
+// console.dir(a);
+// console.log('🟢', a(3, 4));
+
+
+//#region 
 
 
