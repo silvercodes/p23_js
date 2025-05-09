@@ -452,7 +452,258 @@
 // console.dir(a);
 // console.log('🟢', a(3, 4));
 
-
 //#region 
 
 
+//#region setTimeout / setInterval
+
+// const res = setTimeout(() => console.log('🟢', 'test'), 3000);
+// console.log('🟢', res);
+
+
+// function render(message) {
+//     console.log('🟢', message);
+// }
+
+// setTimeout(render, 2000, 'Vasia');
+
+
+
+// function f() {
+//     console.log('🟢', this);
+// }
+
+// setTimeout(f, 1000);
+
+
+
+
+// setTimeout(() => console.log('🟢', 'test1'), 0);
+// setTimeout(() => console.log('🟢', 'test2'), 0);
+// setTimeout(() => console.log('🟢', 'test3'), 0);
+// setTimeout(() => console.log('🟢', 'test4'), 0);
+// setTimeout(() => console.log('🟢', 'test5'), 0);
+
+// console.log('🟢', 'aaa1');
+// console.log('🟢', 'aaa2');
+// console.log('🟢', 'aaa3');
+// console.log('🟢', 'aaa4');
+// console.log('🟢', 'aaa5');
+
+
+
+
+// let timerId = setTimeout(() => console.log('🟢', 'test'), 3000);
+// setTimeout(() => clearTimeout(timerId), 1000);
+
+
+
+// let count = 0;
+// const intervalId = setInterval(() => console.log('🟢', ++count), 300);
+// setTimeout(() => clearInterval(intervalId), 3000);
+
+
+
+// let delay = 3000;
+
+// let timerId = setTimeout(function req() {
+//     // fetch to server
+
+//     // if (error)
+//         // delay += 500;
+
+//     console.log('🟢', 'success');
+
+//     timerId = setTimeout(req, delay);
+
+
+// }, delay);
+
+
+//#endregion
+
+
+//#region decorators
+
+// function calc(a) {
+//     console.log('🟢', `calc() with ${a}`);
+
+//     return a * 2;
+// }
+
+// function cacheDecorator(fn) {
+//     const cache = new Map();
+
+//     return function(val) {
+//         if (cache.has(val)) {
+//             console.log('🟢', `from cache: ${cache.get(val)}`);
+//             return cache.get(val);
+//         }
+
+//         let result = fn(val);
+
+//         cache.set(val, result);
+
+//         return result;
+//     }
+// }
+
+// calc(2);
+// calc = cacheDecorator(calc);
+// calc(3);
+// calc(4);
+// calc(3);
+// calc(4);
+
+
+
+
+
+
+
+// const user = {
+//     getFactor() {
+//         return 10;
+//     },
+//     calc(val) {
+//         console.log('🟢', `calc() with ${val}`);
+//         return val * this.getFactor();
+//     }
+// }
+
+// function cacheDecorator(fn) {
+//     const cache = new Map();
+
+//     return function(val) {
+//         console.log('🟢', this);
+
+//         if (cache.has(val)) {
+//             console.log('🟢', `from cache: ${cache.get(val)}`);
+//             return cache.get(val);
+//         }
+
+//         // let result = fn(val);
+//         let result = fn.call(this, val);            // <------------
+
+//         cache.set(val, result);
+
+//         return result;
+//     }
+// }
+
+
+// // console.log('🟢', user.calc(3));
+
+// user.calc = cacheDecorator(user.calc);
+
+// console.log('🟢', user.calc(3));
+// console.log('🟢', user.calc(4));
+// console.log('🟢', user.calc(3));
+
+
+
+
+
+// function f() {
+//     console.log('🟢', this.val);
+// }
+
+// // const user = {
+// //     val: 10,
+// // };
+// // user.f = f;
+// // user.f();
+
+// const a = {val: 10};
+// const b = {val: 20};
+
+// f.call(a);
+// f.call(b);
+
+
+
+
+
+
+
+
+// const user = {
+//     getFactor() {
+//         return 10;
+//     },
+//     calc(a, b) {
+//         console.log('🟢', `calc() with ${a}, ${b}`);
+//         return a * this.getFactor() + b;
+//     }
+// }
+
+// function cacheDecorator(fn, hashFn) {
+//     const cache = new Map();
+
+//     return function() {
+//         let key = hashFn(arguments);
+//         console.log('🟢', `key = ${key}`);
+
+//         if (cache.has(key)) {
+//             console.log('🟢', `from cache`);
+//             return cache.get(key);
+//         }
+
+//         // let result = fn(val);
+//         // let result = fn.call(this, val);             // <------------
+        
+//         // let result = fn.call(this, ...arguments);
+//         let result = fn.apply(this, arguments);         // <------------
+
+//         cache.set(key, result);
+
+//         return result;
+//     }
+// }
+
+
+// user.calc = cacheDecorator(user.calc, args => {
+//     let str = '';
+//     for(let a of args)
+//         str += a
+
+//     return str;
+// });
+
+// user.calc = cacheDecorator(user.calc, args => [].join.call(args));
+
+// console.log('🟢', user.calc(3, 1));
+// console.log('🟢', user.calc(4, 1));
+// console.log('🟢', user.calc(3, 1));
+
+
+//#endregion
+
+
+//#region logDecorator
+
+function logDecorator(fn) {
+    function wrapper(...args) {
+        wrapper.logs.push(args);
+
+        return fn.apply(this, args);
+    }
+
+    wrapper.logs = [];
+
+    return wrapper;
+}
+
+function exec(a, b) {
+    return a + b;
+}
+
+exec = logDecorator(exec);
+
+console.log('🟢', exec(1, 3, 10, 12));
+console.log('🟢', exec(6, 7));
+console.log('🟢', exec(0, 0));
+
+console.dir(exec);
+
+//#endregion
