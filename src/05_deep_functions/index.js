@@ -682,28 +682,219 @@
 
 //#region logDecorator
 
-function logDecorator(fn) {
-    function wrapper(...args) {
-        wrapper.logs.push(args);
+// function logDecorator(fn) {
+//     function wrapper(...args) {
+//         wrapper.logs.push(args);
 
-        return fn.apply(this, args);
-    }
+//         return fn.apply(this, args);
+//     }
 
-    wrapper.logs = [];
+//     wrapper.logs = [];
 
-    return wrapper;
-}
+//     return wrapper;
+// }
 
-function exec(a, b) {
-    return a + b;
-}
+// function exec(a, b) {
+//     return a + b;
+// }
 
-exec = logDecorator(exec);
+// exec = logDecorator(exec);
 
-console.log('🟢', exec(1, 3, 10, 12));
-console.log('🟢', exec(6, 7));
-console.log('🟢', exec(0, 0));
+// console.log('🟢', exec(1, 3, 10, 12));
+// console.log('🟢', exec(6, 7));
+// console.log('🟢', exec(0, 0));
 
-console.dir(exec);
+// console.dir(exec);
+
+//#endregion
+
+
+//#region throttleDecorator
+
+// function throttleDecorator(fn, interval) {
+
+//     let lastTime;
+
+//     return function() {
+//         let lastExecPeriod = Date.now() - lastTime;
+
+//         if (!lastTime || lastExecPeriod >= interval) {
+//             fn.apply(this, arguments);
+//             lastTime = Date.now();
+//         }
+
+//     }
+// }
+
+
+// let i = 0;
+// function f() {
+//     console.log('🟢', ++i);
+// }
+
+// f = throttleDecorator(f, 1000);
+
+// for (let i = 0; i < 100e6; ++i)
+//     f();
+
+
+
+
+// let i = 0;
+// function f() {
+//     console.log('🟢', ++i);
+// }
+
+// f = throttleDecorator(f, 500);
+
+// document.addEventListener('mousemove', f);
+
+//#endregion
+
+
+//#region singletonDecorator
+
+// function singletonDecorator(fn) {
+//     let canRun = true;
+//     let result;
+
+//     return function() {
+//         if (canRun) {
+//             result = fn.apply(this, arguments);
+//             canRun = false;
+//         }
+
+//         return result;
+//     }
+// }
+
+// function f() {
+//     console.log('🟢', 'f() running');
+//     return 10;
+// }
+
+// f = singletonDecorator(f);
+// console.log('🟢', f());
+// console.log('🟢', f());
+// console.log('🟢', f());
+// console.log('🟢', f());
+
+//#endregion
+
+
+//#region debounceDecorator
+
+// function debounceDecorator(fn, interval) {
+//     let timer;
+
+//     return function() {
+//         clearTimeout(timer);
+//         let args = arguments;
+//         let self = this;
+//         timer = setTimeout(function() {
+//             fn.apply(self, args);
+//         }, interval);
+//     }
+// }
+
+
+// let i = 0;
+// function f() {
+//     console.log('🟢', ++i);
+// }
+
+// f = debounceDecorator(f, 500);
+
+// document.addEventListener('mousemove', f);
+
+
+//#endregion
+
+
+//#region bind()
+
+// const user = {
+//     email: 'vasia@mail.com',
+//     render() {
+//         console.log('🟢', this.email);
+//     }
+// };
+
+// // user.render();
+
+// // setTimeout(function() {
+// //     user.render();
+// // }, 1000);
+
+// // setTimeout(() => user.render(), 1000);
+
+// // setTimeout(user.render, 1000);
+
+// // let f = user.render;
+// // f = f.bind(user);
+// // f();
+
+
+// // function exec() {
+// //     console.log('🟢', this.email);
+// // }
+
+// // let f = exec.bind(user);
+// // f();
+
+
+// setTimeout(user.render.bind(user), 1000);
+
+
+//#endregion
+
+
+//#region Arrow functions
+
+// const user = {
+//     email: 'vasia@mail.com',
+//     grades: [7, 9, 10, 12, 5],
+//     render() {
+//         this.grades.forEach(function(g) {
+//             console.log('🟢', `email: ${this.email}: ${g}`);
+//         }.bind(this));
+//     }
+// };
+
+// user.render();
+
+
+
+// const user = {
+//     email: 'vasia@mail.com',
+//     grades: [7, 9, 10, 12, 5],
+//     render() {
+//         this.grades.forEach( g => {
+//             console.log('🟢', `email: ${this.email}: ${g}`);
+//         });
+//     }
+// };
+
+// user.render();
+
+
+
+
+// function decorator(fn, delay) {
+//     return function() {
+//         setTimeout(() => fn.call(this, ...arguments), delay);
+//     }
+// }
+
+// function f(a, b, c) {
+//     console.log('🟢', this);
+//     console.log('🟢', a, b, c);
+// }
+
+// let df = decorator(f, 2000);
+
+// df('vasia', 3, {});
+
+
 
 //#endregion
