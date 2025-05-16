@@ -394,14 +394,63 @@
 
 
 
-console.dir(Map);
+// console.dir(Map);
 
-console.dir(Number);
-console.dir(Boolean);
-console.dir(String);
-console.dir(Symbol);
+// console.dir(Number);
+// console.dir(Boolean);
+// console.dir(String);
+// console.dir(Symbol);
 
 
+// String.prototype.hohoho = function() {
+//     console.log('🟢', 'hohoho');
+// }
+
+// 'vasia'.hohoho();
+
+
+
+// const container = {
+//     0: 101,
+//     1: 202,
+//     3: 303,
+//     length: 3,
+// };
+
+// // console.dir(Object);
+// // console.dir(container);
+
+
+// // container.__proto__ = Array.prototype;
+// // console.dir(container);
+
+// // console.log('🟢', container.join('-'));
+
+
+// container.join = Array.prototype.join;
+// console.log('🟢', container);
+// console.log('🟢', container.join('-'));
+
+
+
+
+// console.dir(Object);
+// const a = Object.create(null);
+// console.dir( a);
+
+// const b = Object.create(null, {
+//     id: {
+//         value: 101,
+//         writable: true,
+//     }
+// });
+// console.dir(b);
+
+
+
+//---------------- глубокое клонирование --------
+const obj = {};
+const copy = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
 
 //#endregion
 
